@@ -10,32 +10,35 @@ jobs:
   train_and_report_eval_performance:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v3
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: '3.9'
 
-      # Setup CML GitHub Action
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies with Poetry
+        run: |
+          poetry install
+
       - name: Setup CML
         uses: iterative/setup-cml@v1
-          
+
       - name: Train model
         run: |
-          python3 preprocess_dataset.py
-          python3 train.py
+          poetry run python preprocess_dataset.py
+          poetry run python train.py
 
       - name: Write CML report
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Add metrics data to markdown
           cat metrics.json >> model_eval_report.md
-          
-          # Add confusion matrix plot to markdown
           echo "![confusion matrix plot](./confusion_matrix.png)" >> model_eval_report.md
-
-          # Create comment from markdown report
-          cml comment create model_eval_report.md
+          poetry run cml comment create model_eval_report.md
