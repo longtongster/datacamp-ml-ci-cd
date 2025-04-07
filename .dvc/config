@@ -1,0 +1,4 @@
+[core]
+    remote = myawsremote
+['remote "myawsremote"']
+    url = ../s3::mybucket

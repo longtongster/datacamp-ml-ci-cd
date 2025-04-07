@@ -17,4 +17,13 @@ add a file
 setting up remote repo's 
 `dvc remote add myAWSremote s3::mybucket`
 
+setting up local and default remotes:
+`dvc remote add mylocalremote /tmp/dvc`
 
+use the `-d` flag to set the default repo.
+`dvc remote add -d mylocalremote /tmp/dvc`
+
+uploading and retrieving data
+`dvc push <target>`
+
+`dvc pull <target>`
