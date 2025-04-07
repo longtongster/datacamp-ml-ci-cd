@@ -1,4 +1,4 @@
-# Introduction.
+# Introduction
 
 This repo is intended to show a ci for an ml model.
 
