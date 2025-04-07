@@ -14,4 +14,7 @@ create dvc repo
 add a file 
 `dvc add <filename>`
 
+setting up remote repo's 
+`dvc remote add myAWSremote s3::mybucket`
+
 

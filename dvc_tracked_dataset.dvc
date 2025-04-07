@@ -1,0 +1,6 @@
+outs:
+- md5: 099ac823f69eb2ad7690558a2ca0b58e.dir
+  size: 10105884
+  nfiles: 1
+  hash: md5
+  path: dvc_tracked_dataset
