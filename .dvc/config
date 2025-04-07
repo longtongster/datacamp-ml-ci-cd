@@ -1,4 +1,4 @@
 [core]
     remote = myawsremote
 ['remote "myawsremote"']
-    url = ../s3::mybucket
+    url = s3://dvc-bucket-svw

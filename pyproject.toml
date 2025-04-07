@@ -11,6 +11,7 @@ pandas="*"
 scikit-learn="*"
 matplotlib="*"
 dvc="*"
+dvc-s3="*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "*"
