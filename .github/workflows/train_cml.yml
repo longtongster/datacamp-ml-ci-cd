@@ -2,30 +2,40 @@ name: model-training
 
 on:
   pull_request:
-    branches: main
+    branches: [main]
 
 permissions: write-all
 
 jobs:
   train_and_report_eval_performance:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10.16'
+          python-version: 3.10  # Match your Poetry project's Python version
 
-      - name: Install Poetry
+      - name: Install dependencies
         run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+          pip install dvc[s3]
 
-      - name: Install dependencies with Poetry
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: us-east-1  # Change to your region if needed
+
+      - name: Pull data with DVC
         run: |
-          poetry install --no-root
+          dvc pull
 
       - name: Setup CML
         uses: iterative/setup-cml@v1
@@ -39,6 +49,8 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo "# Model Evaluation Report" > model_eval_report.md
           cat metrics.json >> model_eval_report.md
-          echo "![confusion matrix plot](./confusion_matrix.png)" >> model_eval_report.md
-          poetry run cml comment create model_eval_report.md
+          echo "![confusion matrix](./confusion_matrix.png)" >> model_eval_report.md
+
+          cml comment create model_eval_report.md
