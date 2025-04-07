@@ -1,0 +1,54 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python3 preprocess_dataset.py
+    deps:
+    - path: dvc_tracked_dataset/weather_training_data.csv
+      hash: md5
+      md5: 2968a54f969d7b1e1bfe6c8346bc2c4a
+      size: 10105884
+    - path: preprocess_dataset.py
+      hash: md5
+      md5: a01b7211c6e8fc8709a611a2fc692f0d
+      size: 3539
+    - path: utils_and_constants.py
+      hash: md5
+      md5: a316327a4a063cb7a43e24fabf6b95c7
+      size: 390
+    outs:
+    - path: processed_dataset/weather.csv
+      hash: md5
+      md5: aca6da1ed30d43918b2a1e61eff72f4b
+      size: 40026903
+  train:
+    cmd: python3 train.py
+    deps:
+    - path: metrics_and_plots.py
+      hash: md5
+      md5: 6fafbcd3a2f47303e082c4780ba3b1a5
+      size: 390
+    - path: model.py
+      hash: md5
+      md5: 14638e0724c5509c99fed61f48f99407
+      size: 916
+    - path: processed_dataset/weather.csv
+      hash: md5
+      md5: aca6da1ed30d43918b2a1e61eff72f4b
+      size: 40026903
+    - path: train.py
+      hash: md5
+      md5: 9831ce5ead8dd68487e35cdd0ce8f470
+      size: 1107
+    - path: utils_and_constants.py
+      hash: md5
+      md5: a316327a4a063cb7a43e24fabf6b95c7
+      size: 390
+    outs:
+    - path: confusion_matrix.png
+      hash: md5
+      md5: b47c722bc97d32519ebe02437d8ca272
+      size: 21164
+    - path: metrics.json
+      hash: md5
+      md5: 6a90149ccb037aa758f98bceb6762344
+      size: 78

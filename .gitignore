@@ -181,3 +181,4 @@ cython_debug/
 /plots.png
 /metrics.txt
 /dvc_tracked_dataset
+/metrics.json

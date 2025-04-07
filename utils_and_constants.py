@@ -1,7 +1,7 @@
 DATASET_TYPES = ["test", "train"]
 DROP_COLNAMES = ["row ID"]
 TARGET_COLUMN = "RainTomorrow"
-RAW_DATASET = "./raw_dataset/weather_training_data.csv"
+RAW_DATASET = "./dvc_tracked_dataset/weather_training_data.csv"
 PROCESSED_DATASET = "./processed_dataset/weather.csv"
 
 
