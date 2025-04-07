@@ -1,7 +1,17 @@
 # Introduction
 
-This repo is intended to show a ci for an ml model.
+This repo is intended to show a ci for an ml model. It was created when following certain video on datacamps course CI/CD for machine learning.
 
 Create a branch adjust something small (e.g. the README.md), commit the change and merge the branch into the main branch. 
 
-This should trigger a github action that trains a model to check if all is ok. Metrics are written to the comments track of the pull request. 
+This should trigger a github action that trains a model to check if all is ok. Metrics are written to the comments track of the pull request. Then you can close the pull request and delete the branch.
+
+## DVC
+
+create dvc repo
+`dvc init`
+
+add a file 
+`dvc add <filename>`
+
+
